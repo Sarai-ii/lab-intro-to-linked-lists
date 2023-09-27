@@ -42,8 +42,13 @@ class LinkedList {
   delete(data){
     //setting node to the first node in the linked list
     let node = this.head;
+    //the position of the node (should be 0 but lab wants 1)
     let counter = 1;
     // find the node we're trying to delete node.data = first node's data, data = param of node we want to delete and node.next means while there's still a value after this data keep going
+    if (node === null) {
+      // Handle the case where the data is not found (avoids infinite looping)
+      console.log("Data not found in the linked list.");
+    }
     while(node.data !== data && node.next){
       //countes the position of the required data param to change the value of node later
       counter++;
@@ -51,15 +56,16 @@ class LinkedList {
       node = node.next;
       //once node.data === data, we can end the loop
     }
+    if (node === null) {
+      // Handle the case where the data is not found (you can throw an error or do nothing)
+      console.log("Data not found in the linked list.");
+    }
     //store the found node into it's own variable
     let foundNode = node;
     //update node back to the first node in the linked list
     node = this.head;
     //we want to get to the month before the desired data position to remove the data we want so loop through the list
-    for(let i = 0; i < counter; i++){
-      //move to the next node on the list until it satifies the for condition
-      node = node.next;
-    }
+    
     //this deletes because it's setting the next node (desired data) now equals the data after our desired data
     node.next = foundNode.next;
   }
